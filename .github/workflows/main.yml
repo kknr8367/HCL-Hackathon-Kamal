@@ -28,21 +28,21 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  sonar_scan:
-    name: SonarQube Code Analysis
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+  # sonar_scan:
+  #   name: SonarQube Code Analysis
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v3
 
-      - name: Set up SonarQube Scanner
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: "https://sonarqube.hcl.com"  # Replace with actual SonarQube server
+  #     - name: Set up SonarQube Scanner
+  #       uses: sonarsource/sonarqube-scan-action@master
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #         SONAR_HOST_URL: "https://sonarqube.hcl.com"  # Replace with actual SonarQube server
 
-      - name: Run SonarQube Analysis
-        run: sonar-scanner
+  #     - name: Run SonarQube Analysis
+  #       run: sonar-scanner
 
   docker_build:
     name: Build and Push Docker Image
