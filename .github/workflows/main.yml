@@ -27,8 +27,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      - name: Initialize Terraform
-        run: terraform init
+      - name: Initialize Terraform & Modules
+        run: |
+          terraform init -reconfigure  # ✅ Explicitly initialize modules
 
       - name: Check Terraform Configuration
         run: terraform plan
@@ -70,7 +71,7 @@ jobs:
 
       - name: Apply ECS Deployment Manifest
         run: |
-          cd manifest.com  # ✅ Navigate to correct manifest directory
+          cd manifest  # ✅ Corrected directory name
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
           kubectl apply -f ingress.yaml
