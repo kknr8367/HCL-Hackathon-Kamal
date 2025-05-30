@@ -6,21 +6,29 @@ on:
       - main
 
 jobs:
+  list_files:
+    name: List Repository Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Display All Files
+        run: ls -R  # ✅ Lists all files before Terraform execution
+
   terraform:
     name: Terraform Apply
     runs-on: ubuntu-latest
+    needs: list_files  # ✅ Ensures file listing runs first
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
-
-      - name: List all files (before Terraform execution)
-        run: ls -R  # ✅ Shows all files
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
       - name: Initialize Terraform
-        run: terraform init  # ✅ No need to change directory
+        run: terraform init
 
       - name: Check Terraform Configuration
         run: terraform plan
@@ -38,9 +46,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
-      - name: List all files (before Docker execution)
-        run: ls -R  # ✅ Shows all files
 
       - name: Authenticate AWS CLI
         run: |
@@ -62,9 +67,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
-      - name: List all files (before ECS Deployment)
-        run: ls -R  # ✅ Shows all files
 
       - name: Apply ECS Deployment Manifest
         run: |
