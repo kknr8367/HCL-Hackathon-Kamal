@@ -48,3 +48,5 @@ resource "aws_cloudwatch_metric_alarm" "ecs_memory_alarm" {
     ClusterName = "hcl-hackathon-devops-kamal-ECSFargate"
   }
 }
+
+#Uptodate the ECS service to use the log group
