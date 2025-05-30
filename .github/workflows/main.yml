@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: https://github.com/kknr8367/HCL-Hackathon-Kamal.git
+        uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: https://github.com/kknr8367/HCL-Hackathon-Kamal.git
+        uses: actions/checkout@v3
 
       - name: Set up SonarQube Scanner
         uses: sonarsource/sonarqube-scan-action@master
@@ -50,7 +50,7 @@ jobs:
     needs: sonar_scan
     steps:
       - name: Checkout Repository
-        uses: https://github.com/kknr8367/HCL-Hackathon-Kamal.git
+        uses: actions/checkout@v3
 
       - name: Authenticate AWS CLI
         run: |
@@ -71,7 +71,7 @@ jobs:
     needs: docker_build
     steps:
       - name: Checkout Repository
-        uses: https://github.com/kknr8367/HCL-Hackathon-Kamal/manifest.git
+        uses: actions/checkout@v3
 
       - name: Apply ECS Deployment Manifest
         run: |
