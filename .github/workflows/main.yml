@@ -65,6 +65,7 @@ jobs:
 
       - name: Apply ECS Deployment Manifest
         run: |
+          cd manifest.com  # ✅ Navigate to correct manifest directory
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
           kubectl apply -f ingress.yaml
