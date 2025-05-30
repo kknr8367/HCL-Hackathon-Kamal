@@ -20,39 +20,47 @@ jobs:
     name: Terraform Apply
     runs-on: ubuntu-latest
     needs: list_files  # ✅ Ensures file listing runs first
+    permissions:
+      id-token: write  # ✅ Enables OIDC token access
+      contents: read
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials Using OIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/GitHubOIDCRole  # ✅ Replace with your IAM Role ARN
+          aws-region: us-east-1
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
       - name: Initialize Terraform & Modules
-        run: |
-          terraform init -reconfigure  # ✅ Explicitly initialize modules
+        run: terraform init -reconfigure  # ✅ Explicitly initialize modules
 
       - name: Check Terraform Configuration
         run: terraform plan
 
       - name: Apply Terraform Configuration
         run: terraform apply -auto-approve
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   docker_build:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
     needs: terraform  # ✅ Terraform must complete first
+    permissions:
+      id-token: write  # ✅ Enables OIDC authentication
+      contents: read
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Authenticate AWS CLI
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set region us-east-1
+      - name: Configure AWS Credentials Using OIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/GitHubOIDCRole  # ✅ Replace with your IAM Role ARN
+          aws-region: us-east-1
 
       - name: Build and Push Docker Image to ECR
         run: |
@@ -65,9 +73,18 @@ jobs:
     name: Deploy to ECS Fargate
     runs-on: ubuntu-latest
     needs: docker_build
+    permissions:
+      id-token: write  # ✅ Enables OIDC authentication
+      contents: read
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials Using OIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::539935451710:oidc-provider/token.actions.githubusercontent.com  # ✅ Replace with your IAM Role ARN
+          aws-region: us-east-1
 
       - name: Apply ECS Deployment Manifest
         run: |
