@@ -4,6 +4,8 @@
 ## Overview
 This project sets up a DevOps infrastructure on AWS for the HCL Hackathon - Kamal using Terraform and GitHub Actions CI/CD. It provisions necessary AWS resources including IAM, VPC, ECS Fargate, ECR, ALB, and Security Groups.
 
+<img width="466" alt="image" src="https://github.com/user-attachments/assets/4ec76750-af8c-48a8-949a-a0ea53a10789" />
+
 ---
 
 ## AWS Resources Provisioned
