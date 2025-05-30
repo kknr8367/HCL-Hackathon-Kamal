@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hcl-hackathon-app
+  labels:
+    app: hcl-hackathon
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hcl-hackathon
+  template:
+    metadata:
+      labels:
+        app: hcl-hackathon
+    spec:
+      containers:
+        - name: app-container
+          image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/hcl-hackathon-devops-kamal:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "512m"
+              memory: "1024Mi"
+            limits:
+              cpu: "1024m"
+              memory: "2048Mi"
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+      restartPolicy: Always
