@@ -36,6 +36,32 @@ This project sets up a DevOps infrastructure on AWS for the HCL Hackathon - Kama
 ### ECS Fargate Cluster
 - Deploys an ECS Fargate Cluster named `hcl-hackathon-devops-kamal-ECSFargate`.
 
+## Cloudwatch
+- CloudWatch Log Groups to store container logs
+- CloudWatch Alarms to monitor CPU and memory utilization
+- CloudWatch Container Insights for ECS task performance tracking
+- CloudWatch and AWS SNS integration for alert notifications
+- Terraform automation to deploy all configurations
+
+
+SonarQube Integration for Code Quality Analysis
+- What is SonarQube? SonarQube is an open-source tool for static code analysis, identifying bugs, vulnerabilities, and code smells in multiple programming languages.
+- How to Implement SonarQube in CI/CD Pipeline
+- Install SonarQube on a server or use SonarCloud (cloud-based version).
+
+Key Features of SonarQube
+- Code Quality Checks: Detects issues in Python, Java, JavaScript, Terraform, and more.
+- Security Analysis: Identifies potential vulnerabilities (SQL injection, XSS).
+- Automated Review: Flags violations against best practices and coding standards.
+- Reports & Dashboards: Provides detailed metrics via the SonarQube Web UI.
+- Add the SonarQube GitHub Action for automated scanning:
+
+##SonarQube Code:
+- name: SonarQube Scan
+  uses: SonarSource/sonarqube-scan-action@v2
+  env:
+    SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+    SONAR_HOST_URL: "https://sonar.yourdomain.com"
 
 ## Folder Structure
 ```
