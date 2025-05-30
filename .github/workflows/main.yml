@@ -30,7 +30,7 @@ jobs:
       - name: Configure AWS Credentials Using OIDC
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::123456789012:role/GitHubOIDCRole  # ✅ Replace with your IAM Role ARN
+          role-to-assume: arn:aws:iam::539935451710:role/GitHubOIDCRole  # ✅ Corrected IAM Role ARN format
           aws-region: us-east-1
 
       - name: Setup Terraform
@@ -59,7 +59,7 @@ jobs:
       - name: Configure AWS Credentials Using OIDC
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::123456789012:role/GitHubOIDCRole  # ✅ Replace with your IAM Role ARN
+          role-to-assume: arn:aws:iam::539935451710:role/GitHubOIDCRole  # ✅ Corrected IAM Role ARN format
           aws-region: us-east-1
 
       - name: Build and Push Docker Image to ECR
@@ -83,7 +83,7 @@ jobs:
       - name: Configure AWS Credentials Using OIDC
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::539935451710:oidc-provider/token.actions.githubusercontent.com  # ✅ Replace with your IAM Role ARN
+          role-to-assume: arn:aws:iam::539935451710:role/GitHubOIDCRole  # ✅ Corrected IAM Role ARN format
           aws-region: us-east-1
 
       - name: Apply ECS Deployment Manifest
