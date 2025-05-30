@@ -1,22 +1,26 @@
 module "vpc" {
-  source = "./vpc.tf"
+  source = "./vpc"  
 }
 
 module "security_group" {
-  source = "./sg.tf"
+  source = "./sg"  
   vpc_id = module.vpc.vpc_id
 }
 
 module "iam" {
-  source = "./iam.tf"
+  source = "./iam"  
+}
+
+module "sg" {
+  source = "./sg"  
 }
 
 module "ecr" {
-  source = "./ecr.tf"
+  source = "./ecr"  
 }
 
 module "ecs_fargate" {
-  source = "./ecs_fargate.tf"
+  source         = "./ecs_fargate"  
   vpc_id         = module.vpc.vpc_id
   security_group = module.security_group.sg_id
   iam_role       = module.iam.ecs_task_execution_role_arn
@@ -24,6 +28,6 @@ module "ecs_fargate" {
 }
 
 module "cloudwatch" {
-  source = "./terraform/module/cloudwatch"
+  source = "./cloudwatch"  # ✅ Fixed module path
   ecs_cluster_name = module.ecs_fargate.cluster_name
 }

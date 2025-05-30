@@ -7,5 +7,3 @@ resource "aws_ecr_repository" "hcl-hackathon-ecr" {
     scan_on_push = true
   }
 }
-
-

@@ -23,7 +23,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_task_failure_alarm" {
   statistic           = "Average"
   threshold           = 90
   alarm_description   = "Triggers when ECS Task CPU utilization exceeds 90%"
-  actions_enabled     = true
+  # actions_enabled     = true
   alarm_actions       = [aws_sns_topic.cloudwatch_alerts.arn]
 
   dimensions = {
