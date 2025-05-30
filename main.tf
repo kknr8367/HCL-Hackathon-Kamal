@@ -1,3 +1,3 @@
 module "main" {
-  source = "./module"
+  source = "./modules"
 }
